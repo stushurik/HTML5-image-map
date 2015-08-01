@@ -3,23 +3,23 @@
 var $imageMap;
 
 /*
-* rwdImageMaps jQuery plugin v1.4
-*
-* Allows image maps to be used in a responsive design by recalculating the area coordinates to match the actual image size on load and window.resize
-*
-* Copyright (c) 2012 Matt Stow
-* https://github.com/stowball/jQuery-rwdImageMaps
-* http://mattstow.com
-* Licensed under the MIT license
-* 
-* Edited By: Nicholas S Wilhelm
-* Added setTimeout(rwdImageMap, 500);
-* 
-*/
+ * rwdImageMaps jQuery plugin v1.4
+ *
+ * Allows image maps to be used in a responsive design by recalculating the area coordinates to match the actual image size on load and window.resize
+ *
+ * Copyright (c) 2012 Matt Stow
+ * https://github.com/stowball/jQuery-rwdImageMaps
+ * http://mattstow.com
+ * Licensed under the MIT license
+ *
+ * Edited By: Nicholas S Wilhelm
+ * Added setTimeout(rwdImageMap, 500);
+ *
+ */
 (function ($) {
     $.fn.rwdImageMaps = function () {
         var $img = this,
-		version = parseFloat($.fn.jquery);
+            version = parseFloat($.fn.jquery);
 
         var rwdImageMap = function () {
 
@@ -28,22 +28,22 @@ var $imageMap;
                     return;
 
                 var that = this,
-				$that = $(that);
+                    $that = $(that);
 
                 // Since WebKit doesn't know the height until after the image has loaded, perform everything in an onload copy
                 $('<img />').load(function () {
                     var w,
-					h,
-					attrW = 'width',
-					attrH = 'height';
+                        h,
+                        attrW = 'width',
+                        attrH = 'height';
 
                     // jQuery < 1.6 incorrectly uses the actual image width/height instead of the attribute's width/height
                     if (version < 1.6)
                         w = that.getAttribute(attrW),
-						h = that.getAttribute(attrH);
+                            h = that.getAttribute(attrH);
                     else
                         w = $that.attr(attrW),
-						h = $that.attr(attrH);
+                            h = $that.attr(attrH);
 
                     if (!w || !h) {
                         var temp = new Image();
@@ -55,9 +55,9 @@ var $imageMap;
                     }
 
                     var wPercent = $that.width() / 100,
-					hPercent = $that.height() / 100,
-					map = $that.attr('usemap').replace('#', ''),
-					c = 'coords';
+                        hPercent = $that.height() / 100,
+                        map = $that.attr('usemap').replace('#', ''),
+                        c = 'coords';
 
                     $('map[name="' + map + '"]').find('area').each(function () {
                         var $this = $(this);
@@ -65,7 +65,7 @@ var $imageMap;
                             $this.data(c, $this.attr(c));
 
                         var coords = $this.data(c).split(','),
-						coordsPercent = new Array(coords.length);
+                            coordsPercent = new Array(coords.length);
 
                         for (var i = 0; i < coordsPercent.length; ++i) {
                             if (i % 2 === 0)
@@ -92,7 +92,7 @@ var $imageMap;
 // maphilight
 (function ($) {
     var has_VML, has_canvas, create_canvas_for, add_shape_to, clear_canvas, shape_from_area,
-	canvas_style, hex_to_decimal, css3color, is_image_loaded, options_from_area;
+        canvas_style, hex_to_decimal, css3color, is_image_loaded, options_from_area;
 
     var margin_left;
 
@@ -109,7 +109,9 @@ var $imageMap;
     })();
 
     if (!(has_canvas || has_VML)) {
-        $.fn.maphilight = function () { return this; };
+        $.fn.maphilight = function () {
+            return this;
+        };
         return;
     }
 
@@ -243,7 +245,7 @@ var $imageMap;
 
             if (options.fade) {
 
-                $(canvas).css('opacity', 0).animate({ opacity: 1 }, 100);
+                $(canvas).css('opacity', 0).animate({opacity: 1}, 100);
             }
         };
 
@@ -294,21 +296,25 @@ var $imageMap;
     };
 
     is_image_loaded = function (img) {
-        if (!img.complete) { return false; } // IE
-        if (typeof img.naturalWidth != "undefined" && img.naturalWidth === 0) { return false; } // Others
+        if (!img.complete) {
+            return false;
+        } // IE
+        if (typeof img.naturalWidth != "undefined" && img.naturalWidth === 0) {
+            return false;
+        } // Others
 
         return true;
     };
 
     /*
-	canvas_style = {
-		position: 'absolute',
-		left: 0,
-		top: 0,
-		padding: 0,
-		border: 0
-	};
-	*/
+     canvas_style = {
+     position: 'absolute',
+     left: 0,
+     top: 0,
+     padding: 0,
+     border: 0
+     };
+     */
     canvas_style = {};
 
     var ie_hax_done = false;
@@ -320,10 +326,10 @@ var $imageMap;
             var style = document.createStyleSheet();
             var shapes = ['shape', 'rect', 'oval', 'circ', 'fill', 'stroke', 'imagedata', 'group', 'textbox'];
             $.each(shapes,
-				function () {
-				    style.addRule('v\\:' + this, "behavior: url(#default#VML); antialias:true");
-				}
-			);
+                function () {
+                    style.addRule('v\\:' + this, "behavior: url(#default#VML); antialias:true");
+                }
+            );
             ie_hax_done = true;
         }
 
@@ -406,10 +412,9 @@ var $imageMap;
                 var shape, area_options;
                 area_options = options_from_area(this, options);
                 if (
-				!area_options.neverOn
-				&&
-				!area_options.alwaysOn
-				) {
+                    !area_options.neverOn
+                    && !area_options.alwaysOn
+                ) {
                     shape = shape_from_area(this);
 
                     add_shape_to(canvas, shape[0], shape[1], area_options, "highlighted");
@@ -441,7 +446,6 @@ var $imageMap;
                     }
                 }
             }
-
 
 
             $(map).bind('alwaysOn.maphilight', function () {
@@ -476,10 +480,11 @@ var $imageMap;
             });
 
 
-
             $(map).trigger('alwaysOn.maphilight').find('area[coords]')
-			.bind('mouseover.maphilight', mouseover)
-			.bind('mouseout.maphilight', function (e) { clear_canvas(canvas); });
+                .bind('mouseover.maphilight', mouseover)
+                .bind('mouseout.maphilight', function (e) {
+                    clear_canvas(canvas);
+                });
 
             //img.before(canvas); // if we put this after, the mouseover events wouldn't fire.
 
@@ -501,7 +506,7 @@ var $imageMap;
         fillColor: 'FF0000',
         fillOpacity: 0.1,
         stroke: true,
-        strokeColor: 'E80000 ',
+        strokeColor: 'ffffff',
         strokeOpacity: 1,
         strokeWidth: 5,
         fade: true,
@@ -523,13 +528,13 @@ var $imageMap;
 })(jQuery);
 
 /*
-* Zoom 1.7.13
-* license: MIT
-* http://www.jacklmoore.com/zoom
-*
-* Edited By: Nicholas S Wilhelm
-* Added dblclick
-*/
+ * Zoom 1.7.13
+ * license: MIT
+ * http://www.jacklmoore.com/zoom
+ *
+ * Edited By: Nicholas S Wilhelm
+ * Added dblclick
+ */
 (function ($) {
     var defaults = {
         url: false,
@@ -546,14 +551,14 @@ var $imageMap;
     // Core Zoom Logic, independent of event listeners.
     $.zoom = function (target, source, img, magnify) {
         var targetHeight,
-			targetWidth,
-			sourceHeight,
-			sourceWidth,
-			xRatio,
-			yRatio,
-			offset,
-			position = $(target).css('position'),
-			$source = $(source);
+            targetWidth,
+            sourceHeight,
+            sourceWidth,
+            xRatio,
+            yRatio,
+            offset,
+            position = $(target).css('position'),
+            $source = $(source);
 
         // The parent element needs positioning so that the zoomed element can be correctly positioned within.
         target.style.position = /(absolute|fixed)/.test(position) ? position : 'relative';
@@ -562,20 +567,20 @@ var $imageMap;
         img.style.width = img.style.height = '';
 
         $(img)
-			.addClass('zoomImg')
-			.css({
-			    position: 'absolute',
-			    top: 0,
-			    left: 0,
-			    opacity: 0,
-			    width: img.width * magnify,
-			    height: img.height * magnify,
-			    border: 'none',
-			    maxWidth: 'none',
-			    maxHeight: 'none',
-			    display: 'none'
-			})
-			.appendTo(target);
+            .addClass('zoomImg')
+            .css({
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                opacity: 0,
+                width: img.width * magnify,
+                height: img.height * magnify,
+                border: 'none',
+                maxWidth: 'none',
+                maxHeight: 'none',
+                display: 'none'
+            })
+            .appendTo(target);
 
         return {
             init: function () {
@@ -597,7 +602,7 @@ var $imageMap;
             },
             move: function (e) {
                 var left = (e.pageX - offset.left),
-					top = (e.pageY - offset.top);
+                    top = (e.pageY - offset.top);
 
                 top = Math.max(Math.min(top, sourceHeight), 0);
                 left = Math.max(Math.min(left, sourceWidth), 0);
@@ -611,18 +616,18 @@ var $imageMap;
     $.fn.zoom = function (options) {
         return this.each(function () {
             var
-			settings = $.extend({}, defaults, options || {}),
-			//target will display the zoomed image
-			target = settings.target || this,
-			//source will provide zoom location info (thumbnail)
-			source = this,
-			$source = $(source),
-			img = document.createElement('img'),
-			$img = $(img),
-			mousemove = 'mousemove.zoom',
-			clicked = false,
-			touched = false,
-			$urlElement;
+                settings = $.extend({}, defaults, options || {}),
+            //target will display the zoomed image
+                target = settings.target || this,
+            //source will provide zoom location info (thumbnail)
+                source = this,
+                $source = $(source),
+                img = document.createElement('img'),
+                $img = $(img),
+                mousemove = 'mousemove.zoom',
+                clicked = false,
+                touched = false,
+                $urlElement;
 
             // If a url wasn't specified, look for an image element.
             if (!settings.url) {
@@ -660,40 +665,43 @@ var $imageMap;
                     // Skip the fade-in for IE8 and lower since it chokes on fading-in
                     // and changing position based on mousemovement at the same time.
                     $img.stop()
-					.fadeTo($.support.opacity ? settings.duration : 0, 1, $.isFunction(settings.onZoomIn) ? settings.onZoomIn.call(img) : false);
+                        .fadeTo($.support.opacity ? settings.duration : 0, 1, $.isFunction(settings.onZoomIn) ? settings.onZoomIn.call(img) : false);
                 }
 
                 function stop() {
 
                     $img.stop()
-					.fadeTo(settings.duration, 0, $.isFunction(settings.onZoomOut) ? settings.onZoomOut.call(img) : false);
+                        .fadeTo(settings.duration, 0, $.isFunction(settings.onZoomOut) ? settings.onZoomOut.call(img) : false);
 
-                    setTimeout(function () { $('.zoomImg').css("display", "none"); $("#toZoom").removeClass("zoom"); }, 250);
+                    setTimeout(function () {
+                        $('.zoomImg').css("display", "none");
+                        $("#toZoom").removeClass("zoom");
+                    }, 250);
 
                 }
 
                 // Mouse events
                 if (settings.on === 'dblclick') {
                     $source.on('dblclick.zoom',
-						function (e) {
-						    if (clicked) {
-						        // bubble the event up to the document to trigger the unbind.
-						        return;
-						    } else {
-						        clicked = true;
-						        start(e);
-						        $(document).on(mousemove, zoom.move);
-						        $(document).one('dblclick.zoom',
-									function () {
-									    stop();
-									    clicked = false;
-									    $(document).off(mousemove, zoom.move);
-									}
-								);
-						        return false;
-						    }
-						}
-					);
+                        function (e) {
+                            if (clicked) {
+                                // bubble the event up to the document to trigger the unbind.
+                                return;
+                            } else {
+                                clicked = true;
+                                start(e);
+                                $(document).on(mousemove, zoom.move);
+                                $(document).one('dblclick.zoom',
+                                    function () {
+                                        stop();
+                                        clicked = false;
+                                        $(document).off(mousemove, zoom.move);
+                                    }
+                                );
+                                return false;
+                            }
+                        }
+                    );
                 }
 
                 if ($.isFunction(settings.callback)) {
@@ -719,39 +727,39 @@ var partsArr = [];
         // Hilight table row on area part hover
         $('area').hover(function () {
 
-            var id = $(this).attr('data-mapid');
-            selectRowAndPart(id, true);
+                var id = $(this).attr('data-mapid');
+                selectRowAndPart(id, true);
 
-        },
-              function () {
+            },
+            function () {
 
-                  var id = $(this).attr('data-mapid');
-                  var isSelected = $.inArray(id, partsArr);
-                  if (isSelected == -1) {
-                      selectRowAndPart(id, false);
-                  }
-              }
-            );
+                var id = $(this).attr('data-mapid');
+                var isSelected = $.inArray(id, partsArr);
+                if (isSelected == -1) {
+                    selectRowAndPart(id, false);
+                }
+            }
+        );
 
         // Hilight area part on table row hover
         $('tr').hover(function () {
 
-            var id = $(this).attr('data-mapid');
-            var data = $("area[data-mapid=" + id + "]").data('maphilight');
+                var id = $(this).attr('data-mapid');
+                var data = $("area[data-mapid=" + id + "]").data('maphilight');
 
-            if (data === undefined || !data.alwaysOn) {
-                selectRowAndPart(id, true);
+                if (data === undefined || !data.alwaysOn) {
+                    selectRowAndPart(id, true);
+                }
+            },
+            function () {
+
+                var id = $(this).attr('data-mapid');
+                var isSelected = $.inArray(id, partsArr);
+                if (isSelected == -1) {
+                    selectRowAndPart(id, false);
+                }
             }
-        },
-              function () {
-
-                  var id = $(this).attr('data-mapid');
-                  var isSelected = $.inArray(id, partsArr);
-                  if (isSelected == -1) {
-                      selectRowAndPart(id, false);
-                  }
-              }
-            );
+        );
 
         // Remove All Selected Rows And Parts
         $('html').on('click', function (e) {
@@ -768,23 +776,6 @@ var partsArr = [];
 
         // Hilight and keep selected
         $('area, tr').on('click', function (e) {
-            var id = $(this).attr('data-mapid');
-
-            if (e.ctrlKey) {
-                // Add to Array, multiple selection
-                partsArr.push(id);
-                selectRowAndPart(id, true);
-            }
-            else {
-                // Remove all rom Array, singular selection
-                removeAllSelectedRowsAndParts();
-                selectRowAndPart(id, true);
-
-                partsArr = [];
-                partsArr.push(id);
-            }
-
-            return false;
         });
 
     };
@@ -806,7 +797,7 @@ function selectRowAndPart(id, select) {
     }
 
     // Select Part
-    $("area[data-mapid=" + id + "]").data('maphilight', { alwaysOn: select }).trigger('alwaysOn.maphilight'); // add/remove one
+    $("area[data-mapid=" + id + "]").data('maphilight', {alwaysOn: select}).trigger('alwaysOn.maphilight'); // add/remove one
 
 }
 
@@ -814,17 +805,17 @@ function selectRowAndPart(id, select) {
 // Created By: Nicholas S Wilhelm
 // Sets up Responsive, Hilight, Zoom
 (function ($) {
-    $.fn.mapTrifecta = function () {
+    $.fn.mapTrifecta = function (optionsMap) {
 
         $imageMap = this;
 
         // Set up Image Map
-        $imageMap.maphilight();
+        $imageMap.maphilight(optionsMap);
         $imageMap.rwdImageMaps();
 
         // Set up Zoom
         $imageMap.parent().wrap("<span id='toZoom' class='zoom'></span>");
-        $('#toZoom').zoom({ on: 'dblclick' }).removeClass("zoom");
+        $('#toZoom').zoom({on: 'dblclick'}).removeClass("zoom");
 
         // Fix Zoom width
         var width = $imageMap.width();
