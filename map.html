@@ -11,174 +11,173 @@
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script type="text/javascript">//<![CDATA[
     $(window).load(function () {
-        var areaId, r = 0;
-        var map = $('img[usemap]');
-        var singleHoverOptions = {
-            stroke: true,
-            isSelectable: false,
-            fill: false,
-            strokeWidth: 5,
-            strokeColor: '660000',
-            clickNavigate: true,
-            staticState: false,
-            onMouseover: function (e) {
-                var value = $(this).attr("class");
-                areaId = $(this).attr("id");
-                areaId = parseInt(areaId);
-                if (areaId != 501 && areaId != 502 && areaId != 503 && areaId != 504) {
-                    if (value == 'red_house') {
-                        $(this).mapster('set', false).mapster('set', true, {
-                            fill: false,
-                            stroke: true,
-                            strokeColor: '800000'
-                        });
+        var areaId,
+                $map = $('img[usemap]'),
+                singleHoverOptions = {
+                    stroke: true,
+                    isSelectable: false,
+                    fill: false,
+                    strokeWidth: 5,
+                    strokeColor: '660000',
+                    clickNavigate: true,
+                    staticState: false,
+                    onMouseover: function (e) {
+                        var value = $(this).attr("class");
+                        areaId = $(this).attr("id");
+                        areaId = parseInt(areaId);
+                        if (areaId != 501 && areaId != 502 && areaId != 503 && areaId != 504) {
+                            switches.green = true;
+                            switches.black = true;
+                            switches.orange = true;
+                            switches.red = true;
+                            if (value == 'red_house') {
+                                $(this).mapster('set', false).mapster('set', true, {
+                                    fill: false,
+                                    stroke: true,
+                                    strokeColor: '800000'
+                                });
+                            }
+                            if (value == 'black_house') {
+                                $(this).mapster('set', false).mapster('set', true, {
+                                    fill: false,
+                                    stroke: true,
+                                    strokeColor: '202020'
+                                });
+                            }
+                            if (value == 'green_house') {
+                                $(this).mapster('set', false).mapster('set', true, {
+                                    fill: false,
+                                    stroke: true,
+                                    strokeColor: '00CC00'
+                                });
+                            }
+                            if (value == 'orange_house') {
+                                $(this).mapster('set', false).mapster('set', true, {
+                                    fill: false,
+                                    stroke: true,
+                                    strokeColor: 'FF9900'
+                                });
+                            }
+
+                        }
+//                        if (value == 'square_red' || value == 'square_black' || value == 'square_orange' || value == 'square_green') {
+//                                $(this).mapster('highlight',false);
+//                            }
+                    },
+                    onMouseout: function (e) {
+                        if (areaId != 501 && areaId != 502 && areaId != 503 && areaId != 504) {
+                            $(this).mapster('set', false);
+                        }
                     }
-                    if (value == 'black_house') {
-                        $(this).mapster('set', false).mapster('set', true, {
-                            fill: false,
-                            stroke: true,
-                            strokeColor: '202020'
-                        });
+                },
+                optionsForAreas = {
+                    red: {
+                        fill: false,
+                        stroke: true,
+                        strokeColor: '800000',
+                        strokeWidth: 5,
+                        staticState: true
+
+                    },
+                    black: {
+                        fill: false,
+                        stroke: true,
+                        strokeColor: '202020',
+                        strokeWidth: 5,
+                        staticState: true
+                    },
+                    green: {
+                        fill: false,
+                        stroke: true,
+                        strokeColor: '00CC00',
+                        strokeWidth: 5,
+                        staticState: true
+                    },
+                    orange: {
+                        fill: false,
+                        stroke: true,
+                        strokeColor: 'FF9900',
+                        strokeWidth: 5,
+                        staticState: true
                     }
-                    if (value == 'green_house') {
-                        $(this).mapster('set', false).mapster('set', true, {
-                            fill: false,
-                            stroke: true,
-                            strokeColor: '00CC00'
-                        });
-                    }
-                    if (value == 'orange_house') {
-                        $(this).mapster('set', false).mapster('set', true, {
-                            fill: false,
-                            stroke: true,
-                            strokeColor: 'FF9900'
-                        });
-                    }
-                    if (value == 'square_red') {
-                        $(this).mapster('set', false).mapster('set', true, {
-                            fill: false,
-                            stroke: true,
-                            strokeColor: 'FF9900'
-                        });
-                    }
-                }
-            },
-            onMouseout: function (e) {
-                if (areaId != 501 && areaId != 502 && areaId != 503 && areaId != 504) {
-                    $(this).mapster('set', false);
-                }
+                },
+                $mapWrap = $('#villageMap'),
+                houseList = {
+                    $redHouse: $('.red_house'),
+                    $greenHouse: $('.green_house'),
+                    $orangeHouse: $('.orange_house'),
+                    $blackHouse: $('.black_house')
+
+                },
+                houseGroup = {
+                    red: '#503',
+                    green: '#502',
+                    orange: '#504',
+                    black: '#501'
+                },
+                switches = {
+                    red: true,
+                    orange: true,
+                    black: true,
+                    green: true
+                },
+                $areas = $('area');
+
+
+        $mapWrap.on('click', houseGroup.red, function () {
+
+            if (switches.red) {
+                $areas.mapster('deselect');
+                houseList.$redHouse.mapster('set', 'selected', optionsForAreas.red);
+                switches.green = true;
+                switches.black = true;
+                switches.orange = true;
+            } else {
+                houseList.$redHouse.mapster('set', 'deselected');
             }
 
-        };
+            switches.red = !switches.red;
+        });
+        $mapWrap.on('click', houseGroup.green, function () {
 
-
-        //map.mapster('set',false,'red_house');
-
-        var optionsForAreas = {
-            mapKey: 'class',
-            areas: [{
-                key: 'black_house',
-                fill: false,
-                stroke: true,
-                strokeColor: '202020',
-                strokeWidth: 5,
-                staticState: true
-            }, {
-                key: 'green_house',
-                fill: false,
-                stroke: true,
-                strokeColor: '00CC00',
-                strokeWidth: 5,
-                staticState: true
-            }, {
-                key: 'orange_house',
-                fill: false,
-                stroke: true,
-                strokeColor: 'FF9900',
-                strokeWidth: 5,
-                staticState: true
-            }, {
-                key: 'red_house',
-                fill: false,
-                stroke: true,
-                strokeColor: '800000',
-                strokeWidth: 5,
-                staticState: true
+            if (switches.green) {
+                $areas.mapster('deselect');
+                houseList.$greenHouse.mapster('set', 'selected', optionsForAreas.green);
+                switches.red = true;
+                switches.black = true;
+                switches.orange = true;
+            } else {
+                houseList.$greenHouse.mapster('set', 'deselected');
             }
-
-            ]
-
-        };
-
-        var optForRedArea = {
-                    fill: false,
-                    stroke: true,
-                    strokeColor: '800000',
-                    strokeWidth: 5,
-                    staticState: true
-
-                },
-                optForBlackArea = {
-                    fill: false,
-                    stroke: true,
-                    strokeColor: '202020',
-                    strokeWidth: 5,
-                    staticState: true
-                },
-                optForGreenArea = {
-                    fill: false,
-                    stroke: true,
-                    strokeColor: '00CC00',
-                    strokeWidth: 5,
-                    staticState: true
-                },
-                optForOrangeArea = {
-                    fill: false,
-                    stroke: true,
-                    strokeColor: 'FF9900',
-                    strokeWidth: 5,
-                    staticState: true
-                };
-
-
-        map.mapster(singleHoverOptions)
-        // Set hilighted color for groups
-        $('#501').mouseover(function (e) {
-            map.mapster( {mapKey: 'class'}).mapster('set', true, 'black_house', optForBlackArea);
-
-        }).mouseout(function (e) {
-            map.mapster('set', false, 'black_house');
-            map.mapster( singleHoverOptions);
-
+            switches.green = !switches.green;
         });
-        $('#502').mouseover(function (e) {
-            map.mapster( {mapKey: 'class'}).mapster('set', true, 'green_house', optForGreenArea);
-
-        }).mouseout(function (e) {
-            map.mapster('set', false, 'green_house');
-            map.mapster( singleHoverOptions);
-
+        $mapWrap.on('click', houseGroup.orange, function () {
+            if (switches.orange) {
+                $areas.mapster('deselect');
+                houseList.$orangeHouse.mapster('set', 'selected', optionsForAreas.orange);
+                switches.green = true;
+                switches.black = true;
+                switches.red = true;
+            } else {
+                houseList.$orangeHouse.mapster('set', 'deselected');
+            }
+            console.log(switches.orange);
+            switches.orange = !switches.orange;
         });
-        $('#504').mouseover(function (e) {
-            map.mapster({mapKey: 'class'}).mapster('set', true, 'orange_house', optForOrangeArea);
-
-        }).mouseout(function (e) {
-            map.mapster('set', false, 'orange_house');
-            map.mapster( singleHoverOptions);
-
+        $mapWrap.on('click', houseGroup.black, function () {
+            if (switches.black) {
+                $areas.mapster('deselect');
+                houseList.$blackHouse.mapster('set', 'selected', optionsForAreas.black);
+                switches.green = true;
+                switches.red = true;
+                switches.orange = true;
+            } else {
+                houseList.$blackHouse.mapster('set', 'deselected');
+            }
+            switches.black = !switches.black;
         });
-
-        $('#503').mouseover(function (e) {
-            map.mapster({mapKey: 'class'}).mapster('set', true, 'red_house', optForRedArea);
-            console.log('over1');
-
-        }).mouseout(function (e) {
-            map.mapster('set', false, 'red_house');
-            map.mapster( singleHoverOptions);
-            console.log('out1');
-        });
-
-
+;
+        $map.mapster(singleHoverOptions);
     });
 
     </script>
