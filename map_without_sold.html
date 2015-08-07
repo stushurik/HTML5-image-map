@@ -27,7 +27,6 @@
                             switches.green = true;
                             switches.black = true;
                             switches.orange = true;
-                            switches.red = true;
                             if (value == 'red_house') {
                                 $(this).mapster('set', false).mapster('set', true, {
                                     fill: false,
@@ -58,9 +57,6 @@
                             }
 
                         }
-//                        if (value == 'square_red' || value == 'square_black' || value == 'square_orange' || value == 'square_green') {
-//                                $(this).mapster('highlight',false);
-//                            }
                     },
                     onMouseout: function (e) {
                         if (areaId != 501 && areaId != 502 && areaId != 503 && areaId != 504) {
@@ -69,14 +65,6 @@
                     }
                 },
                 optionsForAreas = {
-                    red: {
-                        fill: false,
-                        stroke: true,
-                        strokeColor: '800000',
-                        strokeWidth: 5,
-                        staticState: true
-
-                    },
                     black: {
                         fill: false,
                         stroke: true,
@@ -108,13 +96,11 @@
 
                 },
                 houseGroup = {
-                    red: '#503',
                     green: '#502',
                     orange: '#504',
                     black: '#501'
                 },
                 switches = {
-                    red: true,
                     orange: true,
                     black: true,
                     green: true
@@ -122,26 +108,11 @@
                 $areas = $('area');
 
 
-        $mapWrap.on('click', houseGroup.red, function () {
-
-            if (switches.red) {
-                $areas.mapster('deselect');
-                houseList.$redHouse.mapster('set', 'selected', optionsForAreas.red);
-                switches.green = true;
-                switches.black = true;
-                switches.orange = true;
-            } else {
-                houseList.$redHouse.mapster('set', 'deselected');
-            }
-
-            switches.red = !switches.red;
-        });
         $mapWrap.on('click', houseGroup.green, function () {
 
             if (switches.green) {
                 $areas.mapster('deselect');
                 houseList.$greenHouse.mapster('set', 'selected', optionsForAreas.green);
-                switches.red = true;
                 switches.black = true;
                 switches.orange = true;
             } else {
@@ -155,7 +126,6 @@
                 houseList.$orangeHouse.mapster('set', 'selected', optionsForAreas.orange);
                 switches.green = true;
                 switches.black = true;
-                switches.red = true;
             } else {
                 houseList.$orangeHouse.mapster('set', 'deselected');
             }
@@ -166,7 +136,6 @@
                 $areas.mapster('deselect');
                 houseList.$blackHouse.mapster('set', 'selected', optionsForAreas.black);
                 switches.green = true;
-                switches.red = true;
                 switches.orange = true;
             } else {
                 houseList.$blackHouse.mapster('set', 'deselected');
@@ -175,7 +144,6 @@
         });
 
         $map.mapster(singleHoverOptions);
-
     });
 
     </script>
@@ -189,7 +157,6 @@
     <map name="Map">
         <area shape="rect" id="501" class="square_black" coords="145,557,178,586" href="#" alt="balck square">
         <area shape="rect" id="502" class="square_green" coords="145,449,177,478" href="#" alt="green square">
-        <area shape="rect" id="503" class="square_red" coords="145,397,177,427" href="#" alt="red square">
         <area shape="rect" id="504" class="square_orange" coords="145,501,178,529" href="#" alt="orange square">
 
         <area shape="poly" data-mapid="300" id="300"
