@@ -2,185 +2,12 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Документ без названия</title>
+    <title>VillageMap</title>
     <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="js/imagemapster.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/map.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <script type="text/javascript">//<![CDATA[
-    $(window).load(function () {
-        var areaId,
-                $map = $('img[usemap]'),
-                singleHoverOptions = {
-                    stroke: true,
-                    isSelectable: false,
-                    fill: false,
-                    strokeWidth: 5,
-                    strokeColor: '660000',
-                    clickNavigate: true,
-                    staticState: false,
-                    onMouseover: function (e) {
-                        var value = $(this).attr("class");
-                        areaId = $(this).attr("id");
-                        areaId = parseInt(areaId);
-                        if (areaId != 501 && areaId != 502 && areaId != 503 && areaId != 504) {
-                            switches.green = true;
-                            switches.black = true;
-                            switches.orange = true;
-                            switches.red = true;
-                            if (value == 'red_house') {
-                                $(this).mapster('set', false).mapster('set', true, {
-                                    fill: false,
-                                    stroke: true,
-                                    strokeColor: '800000'
-                                });
-                            }
-                            if (value == 'black_house') {
-                                $(this).mapster('set', false).mapster('set', true, {
-                                    fill: false,
-                                    stroke: true,
-                                    strokeColor: '202020'
-                                });
-                            }
-                            if (value == 'green_house') {
-                                $(this).mapster('set', false).mapster('set', true, {
-                                    fill: false,
-                                    stroke: true,
-                                    strokeColor: '00CC00'
-                                });
-                            }
-                            if (value == 'orange_house') {
-                                $(this).mapster('set', false).mapster('set', true, {
-                                    fill: false,
-                                    stroke: true,
-                                    strokeColor: 'FF9900'
-                                });
-                            }
-
-                        }
-//                        if (value == 'square_red' || value == 'square_black' || value == 'square_orange' || value == 'square_green') {
-//                                $(this).mapster('highlight',false);
-//                            }
-                    },
-                    onMouseout: function (e) {
-                        if (areaId != 501 && areaId != 502 && areaId != 503 && areaId != 504) {
-                            $(this).mapster('set', false);
-                        }
-                    }
-                },
-                optionsForAreas = {
-                    red: {
-                        fill: false,
-                        stroke: true,
-                        strokeColor: '800000',
-                        strokeWidth: 5,
-                        staticState: true
-
-                    },
-                    black: {
-                        fill: false,
-                        stroke: true,
-                        strokeColor: '202020',
-                        strokeWidth: 5,
-                        staticState: true
-                    },
-                    green: {
-                        fill: false,
-                        stroke: true,
-                        strokeColor: '00CC00',
-                        strokeWidth: 5,
-                        staticState: true
-                    },
-                    orange: {
-                        fill: false,
-                        stroke: true,
-                        strokeColor: 'FF9900',
-                        strokeWidth: 5,
-                        staticState: true
-                    }
-                },
-                $mapWrap = $('#villageMap'),
-                houseList = {
-                    $redHouse: $('.red_house'),
-                    $greenHouse: $('.green_house'),
-                    $orangeHouse: $('.orange_house'),
-                    $blackHouse: $('.black_house')
-
-                },
-                houseGroup = {
-                    red: '#503',
-                    green: '#502',
-                    orange: '#504',
-                    black: '#501'
-                },
-                switches = {
-                    red: true,
-                    orange: true,
-                    black: true,
-                    green: true
-                },
-                $areas = $('area');
-
-
-        $mapWrap.on('click', houseGroup.red, function () {
-
-            if (switches.red) {
-                $areas.mapster('deselect');
-                houseList.$redHouse.mapster('set', 'selected', optionsForAreas.red);
-                switches.green = true;
-                switches.black = true;
-                switches.orange = true;
-            } else {
-                houseList.$redHouse.mapster('set', 'deselected');
-            }
-
-            switches.red = !switches.red;
-        });
-        $mapWrap.on('click', houseGroup.green, function () {
-
-            if (switches.green) {
-                $areas.mapster('deselect');
-                houseList.$greenHouse.mapster('set', 'selected', optionsForAreas.green);
-                switches.red = true;
-                switches.black = true;
-                switches.orange = true;
-            } else {
-                houseList.$greenHouse.mapster('set', 'deselected');
-            }
-            switches.green = !switches.green;
-        });
-        $mapWrap.on('click', houseGroup.orange, function () {
-            if (switches.orange) {
-                $areas.mapster('deselect');
-                houseList.$orangeHouse.mapster('set', 'selected', optionsForAreas.orange);
-                switches.green = true;
-                switches.black = true;
-                switches.red = true;
-            } else {
-                houseList.$orangeHouse.mapster('set', 'deselected');
-            }
-            switches.orange = !switches.orange;
-        });
-        $mapWrap.on('click', houseGroup.black, function () {
-            if (switches.black) {
-                $areas.mapster('deselect');
-                houseList.$blackHouse.mapster('set', 'selected', optionsForAreas.black);
-                switches.green = true;
-                switches.red = true;
-                switches.orange = true;
-            } else {
-                houseList.$blackHouse.mapster('set', 'deselected');
-            }
-            switches.black = !switches.black;
-        });
-
-        $map.mapster(singleHoverOptions);
-
-    });
-
-    </script>
-
-
+    <script type="text/javascript" src="js/map.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/map.css" />
 </head>
 
 <body>
@@ -289,10 +116,10 @@
         <area shape="poly" id="111" class="black_house" data-mapid="111"
               coords="1669,594,1567,586,1569,570,1571,560,1572,549,1573,542,1576,531,1578,522,1581,515,1586,505,1590,497,1593,491,1599,483,1604,477,1608,473,1612,469,1615,465,1620,462,1624,462,1631,462,1635,464,1639,469,1647,479,1653,490,1660,504,1665,517,1668,528,1671,541,1672,561,1670,580,1669,588,1671,571"
               href="#111" alt="111">
-        <area id="109" class="black_house" shape="poly" data-mapid="109" id="109"
+        <area class="black_house" shape="poly" data-mapid="109" id="109"
               coords="1669,594,1566,586,1565,591,1564,597,1564,602,1563,608,1561,614,1560,620,1558,628,1556,635,1553,643,1552,648,1675,679,1673,661,1669,650,1666,636,1666,622,1667,607"
               href="#109" alt="109">
-        <area id="107" class="black_house" shape="poly" data-mapid="107" id="107"
+        <area class="black_house" shape="poly" data-mapid="107" id="107"
               coords="1653,758,1532,697,1534,691,1538,684,1540,679,1543,671,1546,665,1549,657,1552,648,1674,678,1675,685,1675,694,1674,703,1674,711"
               href="#107" alt="107">
 
@@ -300,7 +127,6 @@
         <area shape="poly" id="33" class="red_house" data-mapid="33"
               coords="1102,1590,1158,1549,1168,1434,1092,1414,1050,1375,1046,1378,1040,1383,1034,1387,1060,1435"
               href="#33" alt="33">
-        <area shape="poly" class="red_house" coords="1862,3083" href="#">
         <area shape="poly" class="red_house" id="91" data-mapid="91"
               coords="1101,1591,1053,1628,912,1432,920,1427,929,1423,938,1418,945,1416,955,1413,965,1410,974,1408,983,1405,993,1402,1002,1400,1011,1397,1020,1393,1027,1390,1034,1387,1061,1437"
               href="#91" alt="91">
