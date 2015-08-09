@@ -10,7 +10,6 @@ $(document).ready(function () {
             strokeColor: 'F00000',
             clickNavigate: true,
             onMouseover: function () {
-                $map.unbind('mouseout', resetMapKey);
                 console.log($(this));
                 var value = $(this).attr("class");
                 areaId = $(this).attr("id");
@@ -127,67 +126,41 @@ $(document).ready(function () {
             orange: true,
             black: true,
             green: true
-        },
-        $areas = $('area'),
-        resetMapKey = function () {
-            $map.mapster({mapKey: 'id'}).mapster('set_options', singleHoverOptions);
-
         };
 
     $mapWrap.on('click', houseGroup.red, function () {
-        if (switches.red) {
-            $areas.mapster('deselect');
-            switches.green = switches.black = switches.orange = switches.red;
-            $map.mapster({mapKey: 'class'}).mapster('set', 'selected', 'red_house', optionsForAreas.red).bind('mouseout', resetMapKey);
-
-        } else {
-            $map.unbind('mouseout', resetMapKey);
+        $map.mapster({mapKey: 'class'}).mapster('set', 'selected', 'red_house', optionsForAreas.red);
+        setTimeout(function () {
             houseList.$redHouse.mapster('set', 'deselected');
             $map.mapster({mapKey: 'id'}).mapster('set_options', singleHoverOptions);
-        }
-
-        switches.red = !switches.red;
+        }, 500);
     });
 
     $mapWrap.on('click', houseGroup.green, function () {
-        if (switches.green) {
-            $areas.mapster('deselect');
-            $map.mapster({mapKey: 'class'}).mapster('set', true, 'green_house', optionsForAreas.green).bind('mouseout', resetMapKey);
-            switches.red = switches.black = switches.orange = switches.green;
+        $map.mapster({mapKey: 'class'}).mapster('set', true, 'green_house', optionsForAreas.green);
 
-        } else {
-            $map.unbind('mouseout', resetMapKey);
-            houseList.$greenHouse.mapster('set', 'deselected');
+        setTimeout(function () {
+            houseList.$redHouse.mapster('set', 'deselected');
             $map.mapster({mapKey: 'id'}).mapster('set_options', singleHoverOptions);
-        }
-        switches.green = !switches.green;
+        }, 500);
     });
 
 
     $mapWrap.on('click', houseGroup.orange, function () {
-        if (switches.orange) {
-            $areas.mapster('deselect');
-            $map.mapster({mapKey: 'class'}).mapster('set', true, 'orange_house', optionsForAreas.orange).bind('mouseout', resetMapKey);
-            switches.green = switches.black = switches.red = switches.orange;
-        } else {
-            $map.unbind('mouseout', resetMapKey);
-            houseList.$orangeHouse.mapster('set', 'deselected');
+        $map.mapster({mapKey: 'class'}).mapster('set', true, 'orange_house', optionsForAreas.orange);
+        setTimeout(function () {
+            houseList.$redHouse.mapster('set', 'deselected');
             $map.mapster({mapKey: 'id'}).mapster('set_options', singleHoverOptions);
-        }
-        switches.orange = !switches.orange;
+        }, 500);
     });
 
     $mapWrap.on('click', houseGroup.black, function () {
-        if (switches.black) {
-            $areas.mapster('deselect');
-            $map.mapster({mapKey: 'class'}).mapster('set', true, 'black_house', optionsForAreas.black).bind('mouseout', resetMapKey);
-            switches.green = switches.red = switches.orange = switches.black;
-        } else {
-            $map.unbind('mouseout', resetMapKey);
-            houseList.$blackHouse.mapster('set', 'deselected');
+        $map.mapster({mapKey: 'class'}).mapster('set', true, 'black_house', optionsForAreas.black);
+        setTimeout(function () {
+            houseList.$redHouse.mapster('set', 'deselected');
             $map.mapster({mapKey: 'id'}).mapster('set_options', singleHoverOptions);
-        }
-        switches.black = !switches.black;
+        }, 500);
+
     });
 
     $map.mapster(singleHoverOptions);
