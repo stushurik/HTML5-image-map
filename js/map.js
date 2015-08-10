@@ -70,9 +70,19 @@ $(document).ready(function () {
 
 
     $('.lot_key').click(function (e) {
+
         groupKey = $(this).data('group');
+
+        var selected = true;
+        if ($map.mapster('get', groupKey)){
+            selected = false;
+        } else {
+            $map.mapster('highlight', groupKey);
+        }
+        $map.mapster('set', selected, groupKey);
+
+
         e.preventDefault();
-        $map.mapster('highlight', groupKey);
 
     });
 
